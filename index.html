@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vincent Lu｜影像 × 設計 × AI 小工具</title>
+  <meta name="description" content="Vincent Lu（呂璟明）個人作品集。影像編導出身，從事攝影、公共設計與 UX 設計，現在用 AI 製作開源的生活小工具。">
+  <meta property="og:title" content="Vincent Lu｜影像 × 設計 × AI 小工具">
+  <meta property="og:description" content="拍過微電影、在公部門做了十年的設計與傳播。現在用 AI 做一些小工具，先解決自己家裡的問題，再開源分享給有同樣需求的人。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-light: #F6F5F2;
+      --bg-dark: #1C1F21;
+      --text-dark: #1E1E1E;
+      --text-dark-muted: rgba(30, 30, 30, 0.72);
+      --text-light: #E9E9E6;
+      --text-light-muted: rgba(233, 233, 230, 0.74);
+      --accent-light: #05788C;
+      --accent-dark: #6FBFCB;
+
+      --border-light: rgba(30, 30, 30, 0.14);
+      --border-dark: rgba(233, 233, 230, 0.16);
+      --header-scrolled-bg: rgba(246, 245, 242, 0.94);
+      --hero-scrim-top: rgba(28, 31, 33, 0.56);
+      --hero-scrim-mid: rgba(28, 31, 33, 0.24);
+      --hero-scrim-bottom: rgba(28, 31, 33, 0.82);
+      --surface-dark-subtle: rgba(233, 233, 230, 0.03);
+      --surface-light-subtle: rgba(30, 30, 30, 0.04);
+
+      --font-serif: "Cormorant Garamond", "Noto Serif TC", Georgia, serif;
+      --font-sans: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      --container-max: 1160px;
+      --gutter-mobile: 20px;
+      --gutter-desktop: 40px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 72px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent-light);
+      outline-offset: 3px;
+    }
+
+    .surface-dark a:focus-visible,
+    .site-header:not(.is-scrolled) a:focus-visible {
+      outline-color: var(--accent-dark);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--gutter-mobile);
+    }
+
+    /* Header */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      color: var(--text-light);
+      background-color: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+    }
+
+    .site-header.is-scrolled {
+      color: var(--text-dark);
+      background-color: var(--header-scrolled-bg);
+      border-bottom-color: var(--border-light);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 58px;
+      padding-block: 10px;
+    }
+
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.25s ease;
+    }
+
+    .brand:hover {
+      color: var(--accent-dark);
+    }
+
+    .site-header.is-scrolled .brand:hover {
+      color: var(--accent-light);
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: nowrap;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .site-nav a {
+      text-decoration: none;
+      white-space: nowrap;
+      padding-block: 6px;
+      padding-inline: 2px;
+      transition: color 0.25s ease;
+    }
+
+    .site-nav a:hover {
+      color: var(--accent-dark);
+    }
+
+    .site-header.is-scrolled .site-nav a:hover {
+      color: var(--accent-light);
+    }
+
+    .nav-sep {
+      opacity: 0.55;
+      user-select: none;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow: hidden;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        var(--hero-scrim-top) 0%,
+        var(--hero-scrim-mid) 42%,
+        var(--hero-scrim-bottom) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding-top: 112px;
+      padding-bottom: 36px;
+    }
+
+    .hero-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 24px;
+    }
+
+    .hero-title-group {
+      align-self: flex-start;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(2.65rem, 7vw, 5rem);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-subtitle {
+      margin: 12px 0 0;
+      font-size: clamp(0.95rem, 1.4vw, 1.125rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--text-light);
+    }
+
+    .hero-caption {
+      margin: 0;
+      align-self: flex-end;
+      font-family: var(--font-serif);
+      font-size: 0.9375rem;
+      letter-spacing: 0.06em;
+      color: var(--text-light-muted);
+    }
+
+    /* Surfaces */
+    .surface-light {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .surface-dark {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 3vw, 2.35rem);
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+    }
+
+    /* Opening */
+    .opening {
+      padding-block: 76px;
+    }
+
+    .opening-inner {
+      max-width: 760px;
+    }
+
+    .opening-quote {
+      margin: 0;
+    }
+
+    .opening-quote p {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.55rem, 3.2vw, 2.35rem);
+      font-weight: 400;
+      line-height: 1.42;
+      letter-spacing: 0.01em;
+    }
+
+    .opening-cite {
+      display: block;
+      margin-top: 16px;
+      font-family: var(--font-serif);
+      font-style: normal;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      color: var(--text-dark-muted);
+    }
+
+    .opening-intro {
+      margin: 36px 0 0;
+      font-size: 1.03125rem;
+      line-height: 1.95;
+      color: var(--text-dark);
+    }
+
+    /* Work */
+    .work-section-head {
+      padding-top: 64px;
+      padding-bottom: 16px;
+    }
+
+    .work-head-rule {
+      padding-top: 56px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .work-row {
+      padding-block: 56px;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .work-media {
+      min-width: 0;
+    }
+
+    .work-media--contain {
+      background-color: var(--bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-block: 8px;
+    }
+
+    .work-media--contain img {
+      width: auto;
+      max-width: 100%;
+      max-height: 560px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .work-media--portrait {
+      display: flex;
+      justify-content: center;
+    }
+
+    .work-media--portrait img {
+      width: auto;
+      max-width: 100%;
+      max-height: 600px;
+      height: auto;
+    }
+
+    .work-media--cover img {
+      width: 100%;
+      max-height: 540px;
+      object-fit: cover;
+    }
+
+    .zhizhang-poster {
+      width: 100%;
+      min-height: 320px;
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .zhizhang-poster-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 5.5vw, 4.5rem);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0.16em;
+      text-indent: 0.16em;
+      color: var(--text-light);
+    }
+
+    .zhizhang-poster-rule {
+      width: 28px;
+      height: 1px;
+      background-color: var(--accent-dark);
+    }
+
+    .zhizhang-poster-status {
+      margin: 0;
+      font-size: 0.875rem;
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+      color: var(--text-light-muted);
+    }
+
+    .work-content {
+      min-width: 0;
+    }
+
+    .work-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 14px;
+      font-size: 0.875rem;
+      letter-spacing: 0.08em;
+    }
+
+    .work-num {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-dark-muted);
+    }
+
+    .surface-dark .work-num {
+      color: var(--text-light-muted);
+    }
+
+    .work-category {
+      color: var(--accent-light);
+      font-weight: 500;
+    }
+
+    .surface-dark .work-category {
+      color: var(--accent-dark);
+    }
+
+    .work-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.65rem, 2.8vw, 2.25rem);
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+    }
+
+    .work-desc {
+      margin: 18px 0 0;
+      max-width: 48ch;
+      line-height: 1.9;
+      color: var(--text-dark-muted);
+    }
+
+    .surface-dark .work-desc {
+      color: var(--text-light-muted);
+    }
+
+    .work-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    .text-link {
+      display: inline-block;
+      color: var(--accent-light);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding-bottom: 3px;
+      border-bottom: 1px solid currentColor;
+      transition: opacity 0.25s ease;
+    }
+
+    .surface-dark .text-link {
+      color: var(--accent-dark);
+    }
+
+    .text-link:hover {
+      opacity: 0.72;
+    }
+
+    /* Photography */
+    .photo-section {
+      padding-block: 76px;
+    }
+
+    .photo-grid {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .photo-item {
+      margin: 0;
+      overflow: hidden;
+      background-color: var(--surface-light-subtle);
+      aspect-ratio: 4 / 5;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      transition: transform 0.65s ease;
+    }
+
+    .photo-item:hover img {
+      transform: scale(1.025);
+    }
+
+    /* About (Experience & Awards) */
+    .about-section {
+      padding-block: 80px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .about-list {
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .about-list li {
+      padding-block: 16px;
+      border-bottom: 1px solid var(--border-dark);
+      font-size: 0.96875rem;
+      line-height: 1.75;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-light);
+    }
+
+    .about-education {
+      margin: 48px 0 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-dark);
+      font-size: 0.9375rem;
+      letter-spacing: 0.04em;
+      color: var(--text-light-muted);
+    }
+
+    /* Contact */
+    .contact-section {
+      padding-block: 84px;
+    }
+
+    .contact-lead {
+      margin: 20px 0 0;
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      line-height: 1.75;
+      color: var(--text-dark);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-light);
+      padding-block: 32px;
+    }
+
+    .footer-copy {
+      margin: 0;
+      font-size: 0.875rem;
+      letter-spacing: 0.04em;
+      color: var(--text-dark-muted);
+    }
+
+    /* Subtle Reveal */
+    html.js-reveal [data-reveal] {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+    }
+
+    html.js-reveal [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding-inline: var(--gutter-desktop);
+      }
+
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .brand {
+        font-size: 1.35rem;
+      }
+
+      .site-nav {
+        gap: 12px;
+        font-size: 0.9rem;
+      }
+
+      .hero-content {
+        padding-bottom: 52px;
+      }
+
+      .hero-layout {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .opening {
+        padding-block: 116px;
+      }
+
+      .work-section-head {
+        padding-top: 88px;
+        padding-bottom: 24px;
+      }
+
+      .work-head-rule {
+        padding-top: 72px;
+      }
+
+      .work-row {
+        padding-block: 88px;
+      }
+
+      .work-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 64px;
+      }
+
+      .work-row--reverse .work-media {
+        order: 2;
+      }
+
+      .work-row--reverse .work-content {
+        order: 1;
+      }
+
+      .zhizhang-poster {
+        min-height: 420px;
+      }
+
+      .photo-section {
+        padding-block: 112px;
+      }
+
+      .photo-grid {
+        margin-top: 48px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .about-section {
+        padding-block: 112px;
+      }
+
+      .about-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 64px;
+      }
+
+      .about-education {
+        margin-top: 64px;
+      }
+
+      .contact-section {
+        padding-block: 120px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+
+      html.js-reveal [data-reveal] {
+        opacity: 1;
+        transform: none;
+      }
+
+      .photo-item:hover img {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand">Vincent Lu</a>
+      <nav class="site-nav" aria-label="主導覽">
+        <a href="#work">作品</a>
+        <span class="nav-sep" aria-hidden="true">·</span>
+        <a href="#photo">攝影</a>
+        <span class="nav-sep" aria-hidden="true">·</span>
+        <a href="#about">經歷</a>
+        <span class="nav-sep" aria-hidden="true">·</span>
+        <a href="#contact">聯絡</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="主視覺">
+      <img
+        src="assets/hero.jpg"
+        alt="奧地利哈爾施塔特湖畔清晨攝影"
+        class="hero-media"
+        fetchpriority="high"
+        decoding="async"
+      >
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <div class="hero-layout">
+          <div class="hero-title-group">
+            <h1 class="hero-title">Vincent Lu</h1>
+            <p class="hero-subtitle">影像 × 設計 × AI 小工具</p>
+          </div>
+          <p class="hero-caption">Hallstatt, Austria</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="surface-light opening" aria-label="開場介紹">
+      <div class="container">
+        <div class="opening-inner" data-reveal>
+          <blockquote class="opening-quote">
+            <p>You cannot depend on your eyes if your imagination is out of focus.</p>
+            <cite class="opening-cite">— Mark Twain</cite>
+          </blockquote>
+          <p class="opening-intro">
+            拍過微電影、在公部門做了十年的設計與傳播，相信好的設計能讓公共資訊更好懂。現在我用 AI 做一些小工具，先解決自己家裡的問題，再開源分享給有同樣需求的人。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="work-heading">
+      <div class="surface-light work-section-head">
+        <div class="container">
+          <div class="work-head-rule">
+            <h2 class="section-title" id="work-heading" data-reveal>作品</h2>
+          </div>
+        </div>
+      </div>
+
+      <article class="surface-light work-row">
+        <div class="container">
+          <div class="work-grid" data-reveal>
+            <div class="work-media work-media--contain">
+              <img src="assets/homie.jpg" alt="Homie 作業通手機介面截圖" loading="lazy">
+            </div>
+            <div class="work-content">
+              <div class="work-meta">
+                <span class="work-num">01</span>
+                <span class="work-category">AI 工具</span>
+              </div>
+              <h3 class="work-title">Homie 作業通</h3>
+              <p class="work-desc">
+                給家長的作業小幫手：拍照逐題批閱、空白題先引導再給答案；繪本拍下來，逐句朗讀、智慧陪讀。開源、免費、照片不經任何伺服器。
+              </p>
+              <div class="work-links">
+                <a class="text-link" href="https://sakuradigi.github.io/homie" target="_blank" rel="noopener">使用 →</a>
+                <a class="text-link" href="https://github.com/sakuradigi/homie" target="_blank" rel="noopener">原始碼 →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="surface-dark work-row work-row--reverse">
+        <div class="container">
+          <div class="work-grid" data-reveal>
+            <div class="work-media" aria-hidden="true">
+              <div class="zhizhang-poster">
+                <p class="zhizhang-poster-title">智帳</p>
+                <span class="zhizhang-poster-rule"></span>
+                <p class="zhizhang-poster-status">展示版準備中</p>
+              </div>
+            </div>
+            <div class="work-content">
+              <div class="work-meta">
+                <span class="work-num">02</span>
+                <span class="work-category">AI 工具</span>
+              </div>
+              <h3 class="work-title">智帳</h3>
+              <p class="work-desc">
+                電子發票匯入、AI 依品項分類、截圖對帳的個人記帳 App。展示版準備中。
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="surface-light work-row">
+        <div class="container">
+          <div class="work-grid" data-reveal>
+            <div class="work-media work-media--portrait">
+              <img src="assets/hallstatt.jpg" alt="Hallstatt in haze 攝影作品，清晨薄霧中的湖畔小鎮" loading="lazy">
+            </div>
+            <div class="work-content">
+              <div class="work-meta">
+                <span class="work-num">03</span>
+                <span class="work-category">攝影</span>
+              </div>
+              <h3 class="work-title">Hallstatt in haze</h3>
+              <p class="work-desc">
+                2022 IPA 國際攝影獎 Official Selection。雪白、湖藍與磚紅，一個起霧的早晨。
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="surface-dark work-row work-row--reverse">
+        <div class="container">
+          <div class="work-grid" data-reveal>
+            <div class="work-media work-media--cover">
+              <img src="assets/ux-arts.jpg" alt="Art's Gallery UX 設計專題介面展示" loading="lazy">
+            </div>
+            <div class="work-content">
+              <div class="work-meta">
+                <span class="work-num">04</span>
+                <span class="work-category">UX 設計</span>
+              </div>
+              <h3 class="work-title">Art's Gallery</h3>
+              <p class="work-desc">
+                Google UX Design 證書專題：藝廊導覽 App 與響應式網站，從使用者訪談、線框到高擬真原型。
+              </p>
+              <div class="work-links">
+                <a class="text-link" href="https://vincent-lu.webflow.io/work/arts-gallery-mobile-app" target="_blank" rel="noopener">看專題 →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="photo" class="surface-light photo-section" aria-labelledby="photo-heading">
+      <div class="container">
+        <h2 class="section-title" id="photo-heading" data-reveal>攝影</h2>
+        <div class="photo-grid" data-reveal>
+          <figure class="photo-item">
+            <img src="assets/p-venice.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-stairs.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-lightshow.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-sea.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-waterfall.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-ricefield.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-tower.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-yellow.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+          <figure class="photo-item">
+            <img src="assets/p-village.jpg" alt="攝影作品" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="surface-dark about-section" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-grid" data-reveal>
+          <div>
+            <h2 class="section-title" id="about-heading">經歷</h2>
+            <ul class="about-list">
+              <li>2019 — 現在｜地方政府｜設計職</li>
+              <li>2015 — 2019｜臺北市政府｜技術職，參與施政報告美感提升與市政直播</li>
+              <li>2012 — 2014｜影像製作｜導演</li>
+              <li>2009 — 2011｜影像製作｜編劇</li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="section-title">得獎</h2>
+            <ul class="about-list">
+              <li>2022 IPA 國際攝影獎 Official Selection</li>
+              <li>2018 臺北市政府青年優秀公務員</li>
+              <li>2013 美濃田園音樂節微電影 銅牌（編劇）</li>
+              <li>2013 天下雜誌「發現美麗臺灣」入圍（編劇、導演）</li>
+              <li>2012 「看見花蓮」全國攝影比賽 優選</li>
+              <li>2011 農委會農村樂活影片 首獎（編劇）</li>
+            </ul>
+          </div>
+        </div>
+        <p class="about-education" data-reveal>國立嘉義大學 美術學系（藝術管理學程）</p>
+      </div>
+    </section>
+
+    <section id="contact" class="surface-light contact-section" aria-labelledby="contact-heading">
+      <div class="container">
+        <div data-reveal>
+          <h2 class="section-title" id="contact-heading">聯絡</h2>
+          <p class="contact-lead">歡迎交流作品與合作授權。</p>
+          <div class="contact-links">
+            <a class="text-link" href="https://www.linkedin.com/in/ching-ming-lu/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="surface-light site-footer">
+    <div class="container">
+      <p class="footer-copy">© 2026 Vincent Lu</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var header = document.getElementById('site-header');
+      function updateHeader() {
+        if (!header) return;
+        header.classList.toggle('is-scrolled', window.scrollY > 48);
+      }
+      updateHeader();
+      window.addEventListener('scroll', updateHeader, { passive: true });
+
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || !('IntersectionObserver' in window)) return;
+
+      document.documentElement.classList.add('js-reveal');
+      var targets = document.querySelectorAll('[data-reveal]');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -24px 0px'
+      });
+
+      targets.forEach(function (el) {
+        observer.observe(el);
+      });
+
+      // 保險：萬一觀察器沒觸發（例如截圖、背景分頁），3 秒後全部顯示，內容不會一直隱形
+      setTimeout(function () {
+        targets.forEach(function (el) { el.classList.add('is-visible'); });
+      }, 3000);
+    })();
+  </script>
+</body>
+</html>
