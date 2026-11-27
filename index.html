@@ -78,7 +78,7 @@
 
     a:focus-visible,
     .lang-toggle:focus-visible,
-    .homie-hint-btn:focus-visible {
+    .hq-btn:focus-visible {
       outline: 2px solid var(--accent-light);
       outline-offset: 3px;
     }
@@ -457,186 +457,137 @@
       object-fit: cover;
     }
 
-    /* Homie Interactive Demo */
-    .homie-demo-wrap {
+    /* Homie：一題，三個停頓 */
+    .hq {
       width: 100%;
-      max-width: 360px;
-      margin-inline: auto;
-    }
-
-    .homie-demo-caption {
-      margin: 0 0 10px;
-      text-align: center;
-      font-size: 0.8125rem;
-      letter-spacing: 0.04em;
-      color: var(--text-dark-muted);
-    }
-
-    .homie-phone {
-      background-color: #FFFFFF;
-      border: 1px solid rgba(30, 30, 30, 0.12);
-      border-radius: 24px;
-      padding: 14px;
-      box-shadow: 0 8px 24px rgba(30, 30, 30, 0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .homie-phone-notch {
-      width: 44px;
-      height: 4px;
-      border-radius: 999px;
-      background-color: rgba(30, 30, 30, 0.14);
-      margin: 0 auto 2px;
-    }
-
-    .homie-card {
-      background-color: #FFFFFF;
-      border: 1px solid rgba(30, 30, 30, 0.09);
-      border-left-width: 4px;
-      border-radius: 14px;
-      padding: 13px 14px;
-      box-shadow: 0 1px 4px rgba(30, 30, 30, 0.04);
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 32px 0 28px;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
       text-align: left;
     }
 
-    .homie-card--wrong {
-      border-left-color: #F4436C;
-    }
-
-    .homie-card--blank {
-      border-left-color: #F59E0B;
-    }
-
-    .homie-card-head {
+    .hq-label {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
+      gap: 12px;
+      margin: 0 0 22px;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      color: var(--accent-light);
     }
 
-    .homie-q-num {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--text-dark);
+    .hq-label::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background-color: currentColor;
     }
 
-    .homie-badge {
-      display: inline-block;
-      font-size: 0.72rem;
+    .hq-q {
+      margin: 0;
+      font-family: "Noto Serif TC", var(--font-serif);
+      font-size: clamp(1.25rem, 2.2vw, 1.5rem);
       font-weight: 500;
-      line-height: 1.35;
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-
-    .homie-badge--danger {
-      background-color: #FFE4EA;
-      color: #BE123C;
-      font-weight: 600;
-    }
-
-    .homie-badge--warn {
-      background-color: #FEF3C7;
-      color: #B45309;
-      font-weight: 600;
-    }
-
-    .homie-badge--topic {
-      background-color: #E6F7F4;
-      color: #0F766E;
-    }
-
-    .homie-eq {
-      margin: 10px 0 6px;
-      font-size: 1rem;
-      font-weight: 600;
-      line-height: 1.4;
-      font-variant-numeric: tabular-nums;
+      line-height: 1.75;
       color: var(--text-dark);
     }
 
-    .homie-compare {
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      font-variant-numeric: tabular-nums;
-      color: var(--text-dark);
+    .hq-steps {
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
     }
 
-    .homie-correct-mark {
-      display: inline-block;
-      background-color: #FFE4EA;
-      color: #DC2626;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 6px;
-    }
-
-    .homie-note {
-      margin: 8px 0 0;
-      font-size: 0.8125rem;
-      line-height: 1.6;
-      color: #5E6673;
-    }
-
-    .homie-word-problem {
-      margin: 10px 0 0;
-      font-size: 0.875rem;
-      line-height: 1.65;
-      color: var(--text-dark);
-    }
-
-    .homie-hints:not(:empty) {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
+    .hq-step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      align-items: baseline;
       gap: 8px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border-light);
+      animation: hq-in 0.6s ease both;
     }
 
-    .homie-hint-box {
-      margin: 0;
-      background-color: #FFFBEB;
-      border: 1px solid #FCD34D;
-      border-radius: 10px;
-      padding: 8px 10px;
-      font-size: 0.8125rem;
-      line-height: 1.6;
-      color: #92400E;
+    .hq-num {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--accent-light);
+      font-variant-numeric: lining-nums;
     }
 
-    .homie-hint-box--answer {
-      background-color: #ECFDF5;
-      border-color: #6EE7B7;
-      color: #065F46;
+    .hq-text {
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--text-dark-muted);
     }
 
-    .homie-hint-btn {
+    .hq-step--answer .hq-num {
+      font-size: 2.5rem;
+      font-style: normal;
+      line-height: 1;
+    }
+
+    .hq-step--answer .hq-text {
+      color: var(--text-dark);
+    }
+
+    .hq-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .hq-progress {
+      display: flex;
+      gap: 6px;
+    }
+
+    .hq-progress i {
+      width: 22px;
+      height: 2px;
+      background-color: var(--border-light);
+      transition: background-color 0.4s ease;
+    }
+
+    .hq[data-step="1"] .hq-progress i:nth-child(-n+1),
+    .hq[data-step="2"] .hq-progress i:nth-child(-n+2),
+    .hq[data-step="3"] .hq-progress i {
+      background-color: var(--accent-light);
+    }
+
+    .hq-btn {
       appearance: none;
-      width: 100%;
-      margin-top: 10px;
-      padding: 9px 14px;
-      background-color: #FFFBEB;
-      border: 1px solid #FCD34D;
-      border-radius: 10px;
-      color: #92400E;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid currentColor;
+      border-radius: 0;
+      padding: 0 0 3px;
+      color: var(--accent-light);
       font-family: inherit;
-      font-size: 0.875rem;
-      font-weight: 600;
-      line-height: 1.4;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
       cursor: pointer;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
+      transition: opacity 0.25s ease;
     }
 
-    .homie-hint-btn:hover {
-      background-color: #FEF3C7;
-      border-color: #F59E0B;
+    .hq-btn:hover {
+      opacity: 0.72;
+    }
+
+    @keyframes hq-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hq-step { animation: none; }
+      .hq-progress i { transition: none; }
     }
 
     .zhizhang-poster {
@@ -1080,37 +1031,15 @@
         <div class="container">
           <div class="work-grid" data-reveal>
             <div class="work-media">
-              <div class="homie-demo-wrap">
-                <p class="homie-demo-caption" data-i18n="homie_demo_caption">試試看：按「給我提示」</p>
-                <div class="homie-phone">
-                  <div class="homie-phone-notch" aria-hidden="true"></div>
-
-                  <div class="homie-card homie-card--wrong">
-                    <div class="homie-card-head">
-                      <span class="homie-q-num" data-i18n="homie_q3_title">第3題</span>
-                      <span class="homie-badge homie-badge--danger" data-i18n="homie_q3_status">要訂正</span>
-                      <span class="homie-badge homie-badge--topic" data-i18n="homie_q3_topic">二位數進位加法</span>
-                    </div>
-                    <p class="homie-eq">48 + 37 =</p>
-                    <p class="homie-compare">
-                      <span data-i18n="homie_q3_compare">你寫：75 → 正確：</span>
-                      <span class="homie-correct-mark">85</span>
-                    </p>
-                    <p class="homie-note" data-i18n="homie_q3_note">個位 8 + 7 = 15 有正確寫下 5，但十位忘記加上進位的 1。</p>
-                  </div>
-
-                  <div class="homie-card homie-card--blank">
-                    <div class="homie-card-head">
-                      <span class="homie-q-num" data-i18n="homie_q6_title">第6題</span>
-                      <span class="homie-badge homie-badge--warn" data-i18n="homie_q6_status">還沒寫</span>
-                      <span class="homie-badge homie-badge--topic" data-i18n="homie_q6_topic">二位數加法應用題</span>
-                    </div>
-                    <p class="homie-word-problem" data-i18n="homie_q6_question">小美原本有 45 張貼紙，媽媽又買給她 28 張，小美現在總共有幾張貼紙？</p>
-                    <div class="homie-hints" id="homie-hints" aria-live="polite"></div>
-                    <button type="button" class="homie-hint-btn" id="homie-hint-btn">💡 給我提示</button>
-                  </div>
+              <figure class="hq" id="hq" data-step="0">
+                <figcaption class="hq-label" data-i18n="hq_label">空白題：先引導，再給答案</figcaption>
+                <p class="hq-q" data-i18n="homie_q6_question">小美原本有 45 張貼紙，媽媽又買給她 28 張，現在總共有幾張？</p>
+                <ol class="hq-steps" id="homie-hints" aria-live="polite"></ol>
+                <div class="hq-foot">
+                  <span class="hq-progress" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <button type="button" class="hq-btn" id="homie-hint-btn">給我提示 →</button>
                 </div>
-              </div>
+              </figure>
             </div>
             <div class="work-content">
               <div class="work-meta">
@@ -1302,23 +1231,15 @@
           work_cat_ai: 'AI 工具',
           work_cat_photo: '攝影',
           work_cat_ux: 'UX 設計',
-          homie_demo_caption: '試試看：按「給我提示」',
-          homie_q3_title: '第3題',
-          homie_q3_status: '要訂正',
-          homie_q3_topic: '二位數進位加法',
-          homie_q3_compare: '你寫：75 → 正確：',
-          homie_q3_note: '個位 8 + 7 = 15 有正確寫下 5，但十位忘記加上進位的 1。',
-          homie_q6_title: '第6題',
-          homie_q6_status: '還沒寫',
-          homie_q6_topic: '二位數加法應用題',
-          homie_q6_question: '小美原本有 45 張貼紙，媽媽又買給她 28 張，小美現在總共有幾張貼紙？',
-          homie_hint_1: '提示 1：先圈出題目裡的兩個數字，想想看「又買給她」貼紙是變多還是變少？',
-          homie_hint_2: '提示 2：把 45 張和 28 張合起來，列出加法算式，用直式算算看（個位滿 10 要進位喔）。',
-          homie_answer: '答案：73 張。想過之後才看答案，才是真的學會。',
-          homie_btn_hint1: '💡 給我提示',
-          homie_btn_hint2: '💡 再給一個提示',
-          homie_btn_answer: '看答案',
-          homie_btn_reset: '↺ 重來',
+          hq_label: '空白題：先引導，再給答案',
+          homie_q6_question: '小美原本有 45 張貼紙，媽媽又買給她 28 張，現在總共有幾張？',
+          homie_hint_1: '先圈出兩個數字。「又買給她」，貼紙是變多，還是變少？',
+          homie_hint_2: '把 45 和 28 合起來，用直式算算看。個位滿 10，記得進位。',
+          homie_answer: '張。先想過再看答案，才記得住。',
+          homie_btn_hint1: '給我提示 →',
+          homie_btn_hint2: '再一個提示 →',
+          homie_btn_answer: '看答案 →',
+          homie_btn_reset: '重來',
           work_01_title: 'Homie 作業通',
           work_01_desc: '給家長的作業小幫手：拍照逐題批閱、空白題先引導再給答案；繪本拍下來，逐句朗讀、智慧陪讀。開源、免費、照片不經任何伺服器。',
           work_01_link_use: '使用 →',
@@ -1369,23 +1290,15 @@
           work_cat_ai: 'AI Tools',
           work_cat_photo: 'Photography',
           work_cat_ux: 'UX Design',
-          homie_demo_caption: 'Try it: tap "Give me a hint"',
-          homie_q3_title: 'Question 3',
-          homie_q3_status: 'Needs fixing',
-          homie_q3_topic: 'Two-digit addition with carrying',
-          homie_q3_compare: 'Wrote 75 → Correct:',
-          homie_q3_note: 'Ones: 8 + 7 = 15, wrote the 5 correctly, but forgot to carry the 1 to the tens.',
-          homie_q6_title: 'Question 6',
-          homie_q6_status: 'Not answered',
-          homie_q6_topic: 'Two-digit addition word problem',
-          homie_q6_question: 'Mei had 45 stickers. Mom bought her 28 more. How many stickers does Mei have now?',
-          homie_hint_1: 'Hint 1: Circle the two numbers. Does "bought her more" mean more stickers or fewer?',
-          homie_hint_2: 'Hint 2: Put 45 and 28 together as an addition, then work it out column by column (carry when the ones reach 10).',
-          homie_answer: 'Answer: 73 stickers. Seeing the answer after thinking it through is how it sticks.',
-          homie_btn_hint1: '💡 Give me a hint',
-          homie_btn_hint2: '💡 Another hint',
-          homie_btn_answer: 'Show answer',
-          homie_btn_reset: '↺ Start over',
+          hq_label: 'Unanswered: guide first, answer last',
+          homie_q6_question: 'Mei had 45 stickers. Mom bought her 28 more. How many does she have now?',
+          homie_hint_1: 'Circle the two numbers. Does "bought her more" mean more stickers, or fewer?',
+          homie_hint_2: 'Put 45 and 28 together and add them column by column. When the ones reach 10, carry.',
+          homie_answer: 'stickers. Thinking first is what makes it stick.',
+          homie_btn_hint1: 'Give me a hint →',
+          homie_btn_hint2: 'Another hint →',
+          homie_btn_answer: 'Show the answer →',
+          homie_btn_reset: 'Start over',
           work_01_title: 'Homie (作業通) — a homework helper for parents',
           work_01_desc: 'Snap a photo to check homework question by question—guiding kids through blank items before revealing answers—or capture picture books for sentence-by-sentence read-aloud and guided reading. Free, open-source, and photos never pass through any server.',
           work_01_link_use: 'Try it →',
@@ -1444,13 +1357,20 @@
         }
       }
 
-      function appendHomieBox(key, extraClass) {
+      function appendHomieBox(key, extraClass, num) {
         if (!homieHintsEl) return;
-        var box = document.createElement('p');
-        box.className = extraClass ? 'homie-hint-box ' + extraClass : 'homie-hint-box';
-        box.setAttribute('data-i18n', key);
-        box.textContent = I18N[currentLang][key];
-        homieHintsEl.appendChild(box);
+        var li = document.createElement('li');
+        li.className = extraClass ? 'hq-step ' + extraClass : 'hq-step';
+        var n = document.createElement('span');
+        n.className = 'hq-num';
+        n.textContent = num;
+        var t = document.createElement('span');
+        t.className = 'hq-text';
+        t.setAttribute('data-i18n', key);
+        t.textContent = I18N[currentLang][key];
+        li.appendChild(n);
+        li.appendChild(t);
+        homieHintsEl.appendChild(li);
       }
 
       function clearHomieBoxes() {
@@ -1464,18 +1384,20 @@
         homieHintBtn.addEventListener('click', function () {
           if (homieStep === 0) {
             homieStep = 1;
-            appendHomieBox('homie_hint_1');
+            appendHomieBox('homie_hint_1', '', '01');
           } else if (homieStep === 1) {
             homieStep = 2;
-            appendHomieBox('homie_hint_2');
+            appendHomieBox('homie_hint_2', '', '02');
           } else if (homieStep === 2) {
             homieStep = 3;
-            appendHomieBox('homie_answer', 'homie-hint-box--answer');
+            appendHomieBox('homie_answer', 'hq-step--answer', '73');
           } else {
             homieStep = 0;
             clearHomieBoxes();
           }
           updateHomieButton();
+          var hq = document.getElementById('hq');
+          if (hq) hq.setAttribute('data-step', String(homieStep));
         });
       }
 
