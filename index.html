@@ -76,13 +76,15 @@
       color: inherit;
     }
 
-    a:focus-visible {
+    a:focus-visible,
+    .lang-toggle:focus-visible {
       outline: 2px solid var(--accent-light);
       outline-offset: 3px;
     }
 
     .surface-dark a:focus-visible,
-    .site-header:not(.is-scrolled) a:focus-visible {
+    .site-header:not(.is-scrolled) a:focus-visible,
+    .site-header:not(.is-scrolled) .lang-toggle:focus-visible {
       outline-color: var(--accent-dark);
     }
 
@@ -168,6 +170,67 @@
     .nav-sep {
       opacity: 0.55;
       user-select: none;
+    }
+
+    .lang-toggle {
+      appearance: none;
+      background: transparent;
+      color: inherit;
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      margin-left: 2px;
+      border: 1px solid var(--border-dark);
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .site-header.is-scrolled .lang-toggle {
+      border-color: var(--border-light);
+    }
+
+    .lang-toggle:hover {
+      color: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    .site-header.is-scrolled .lang-toggle:hover {
+      color: var(--accent-light);
+      border-color: var(--accent-light);
+    }
+
+    @media (max-width: 479px) {
+      .header-inner {
+        gap: 8px;
+      }
+
+      .brand {
+        font-size: 1.05rem;
+        letter-spacing: 0.01em;
+      }
+
+      .site-nav {
+        gap: 2px;
+        font-size: 0.6875rem;
+        letter-spacing: 0;
+      }
+
+      .site-nav a {
+        padding-inline: 1px;
+      }
+
+      .lang-toggle {
+        font-size: 0.65rem;
+        letter-spacing: 0.02em;
+        padding: 3px 6px;
+        margin-left: 2px;
+      }
     }
 
     /* Hero */
@@ -393,6 +456,12 @@
       color: var(--text-light);
     }
 
+    html[lang="en"] .zhizhang-poster-title {
+      font-size: clamp(2.25rem, 5vw, 4rem);
+      letter-spacing: 0.08em;
+      text-indent: 0.08em;
+    }
+
     .zhizhang-poster-rule {
       width: 28px;
       height: 1px;
@@ -616,6 +685,12 @@
         font-size: 0.9rem;
       }
 
+      .lang-toggle {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+        margin-left: 4px;
+      }
+
       .hero-content {
         padding-bottom: 52px;
       }
@@ -715,23 +790,25 @@
   <header class="site-header" id="site-header">
     <div class="container header-inner">
       <a href="#top" class="brand">Vincent Lu</a>
-      <nav class="site-nav" aria-label="主導覽">
-        <a href="#work">作品</a>
+      <nav class="site-nav" aria-label="主導覽" data-i18n-aria="nav_aria">
+        <a href="#work" data-i18n="nav_work">作品</a>
         <span class="nav-sep" aria-hidden="true">·</span>
-        <a href="#photo">攝影</a>
+        <a href="#photo" data-i18n="nav_photo">攝影</a>
         <span class="nav-sep" aria-hidden="true">·</span>
-        <a href="#about">經歷</a>
+        <a href="#about" data-i18n="nav_about">經歷</a>
         <span class="nav-sep" aria-hidden="true">·</span>
-        <a href="#contact">聯絡</a>
+        <a href="#contact" data-i18n="nav_contact">聯絡</a>
+        <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch to English">EN</button>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero" aria-label="主視覺">
+    <section class="hero" aria-label="主視覺" data-i18n-aria="hero_aria">
       <img
         src="assets/hero.jpg"
         alt="奧地利哈爾施塔特湖畔清晨攝影"
+        data-i18n-alt="hero_alt"
         class="hero-media"
         fetchpriority="high"
         decoding="async"
@@ -741,21 +818,21 @@
         <div class="hero-layout">
           <div class="hero-title-group">
             <h1 class="hero-title">Vincent Lu</h1>
-            <p class="hero-subtitle">影像 × 設計 × AI 小工具</p>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">影像 × 設計 × AI 小工具</p>
           </div>
           <p class="hero-caption">Hallstatt, Austria</p>
         </div>
       </div>
     </section>
 
-    <section class="surface-light opening" aria-label="開場介紹">
+    <section class="surface-light opening" aria-label="開場介紹" data-i18n-aria="opening_aria">
       <div class="container">
         <div class="opening-inner" data-reveal>
           <blockquote class="opening-quote">
             <p>You cannot depend on your eyes if your imagination is out of focus.</p>
             <cite class="opening-cite">— Mark Twain</cite>
           </blockquote>
-          <p class="opening-intro">
+          <p class="opening-intro" data-i18n="opening_intro">
             拍過微電影、在公部門做了十年的設計與傳播，相信好的設計能讓公共資訊更好懂。現在我用 AI 做一些小工具，先解決自己家裡的問題，再開源分享給有同樣需求的人。
           </p>
         </div>
@@ -766,7 +843,7 @@
       <div class="surface-light work-section-head">
         <div class="container">
           <div class="work-head-rule">
-            <h2 class="section-title" id="work-heading" data-reveal>作品</h2>
+            <h2 class="section-title" id="work-heading" data-reveal data-i18n="work_heading">作品</h2>
           </div>
         </div>
       </div>
@@ -775,20 +852,20 @@
         <div class="container">
           <div class="work-grid" data-reveal>
             <div class="work-media work-media--contain">
-              <img src="assets/homie.jpg" alt="Homie 作業通手機介面截圖" loading="lazy">
+              <img src="assets/homie.jpg" alt="Homie 作業通手機介面截圖" data-i18n-alt="work_01_alt" loading="lazy">
             </div>
             <div class="work-content">
               <div class="work-meta">
                 <span class="work-num">01</span>
-                <span class="work-category">AI 工具</span>
+                <span class="work-category" data-i18n="work_cat_ai">AI 工具</span>
               </div>
-              <h3 class="work-title">Homie 作業通</h3>
-              <p class="work-desc">
+              <h3 class="work-title" data-i18n="work_01_title">Homie 作業通</h3>
+              <p class="work-desc" data-i18n="work_01_desc">
                 給家長的作業小幫手：拍照逐題批閱、空白題先引導再給答案；繪本拍下來，逐句朗讀、智慧陪讀。開源、免費、照片不經任何伺服器。
               </p>
               <div class="work-links">
-                <a class="text-link" href="https://sakuradigi.github.io/homie" target="_blank" rel="noopener">使用 →</a>
-                <a class="text-link" href="https://github.com/sakuradigi/homie" target="_blank" rel="noopener">原始碼 →</a>
+                <a class="text-link" href="https://sakuradigi.github.io/homie" target="_blank" rel="noopener" data-i18n="work_01_link_use">使用 →</a>
+                <a class="text-link" href="https://github.com/sakuradigi/homie" target="_blank" rel="noopener" data-i18n="work_01_link_code">原始碼 →</a>
               </div>
             </div>
           </div>
@@ -800,18 +877,18 @@
           <div class="work-grid" data-reveal>
             <div class="work-media" aria-hidden="true">
               <div class="zhizhang-poster">
-                <p class="zhizhang-poster-title">智帳</p>
+                <p class="zhizhang-poster-title" data-i18n="work_02_poster_title">智帳</p>
                 <span class="zhizhang-poster-rule"></span>
-                <p class="zhizhang-poster-status">展示版準備中</p>
+                <p class="zhizhang-poster-status" data-i18n="work_02_poster_status">展示版準備中</p>
               </div>
             </div>
             <div class="work-content">
               <div class="work-meta">
                 <span class="work-num">02</span>
-                <span class="work-category">AI 工具</span>
+                <span class="work-category" data-i18n="work_cat_ai">AI 工具</span>
               </div>
-              <h3 class="work-title">智帳</h3>
-              <p class="work-desc">
+              <h3 class="work-title" data-i18n="work_02_title">智帳</h3>
+              <p class="work-desc" data-i18n="work_02_desc">
                 電子發票匯入、AI 依品項分類、截圖對帳的個人記帳 App。展示版準備中。
               </p>
             </div>
@@ -823,15 +900,15 @@
         <div class="container">
           <div class="work-grid" data-reveal>
             <div class="work-media work-media--portrait">
-              <img src="assets/hallstatt.jpg" alt="Hallstatt in haze 攝影作品，清晨薄霧中的湖畔小鎮" loading="lazy">
+              <img src="assets/hallstatt.jpg" alt="Hallstatt in haze 攝影作品，清晨薄霧中的湖畔小鎮" data-i18n-alt="work_03_alt" loading="lazy">
             </div>
             <div class="work-content">
               <div class="work-meta">
                 <span class="work-num">03</span>
-                <span class="work-category">攝影</span>
+                <span class="work-category" data-i18n="work_cat_photo">攝影</span>
               </div>
               <h3 class="work-title">Hallstatt in haze</h3>
-              <p class="work-desc">
+              <p class="work-desc" data-i18n="work_03_desc">
                 2022 IPA 國際攝影獎 Official Selection。雪白、湖藍與磚紅，一個起霧的早晨。
               </p>
             </div>
@@ -843,19 +920,19 @@
         <div class="container">
           <div class="work-grid" data-reveal>
             <div class="work-media work-media--cover">
-              <img src="assets/ux-arts.jpg" alt="Art's Gallery UX 設計專題介面展示" loading="lazy">
+              <img src="assets/ux-arts.jpg" alt="Art's Gallery UX 設計專題介面展示" data-i18n-alt="work_04_alt" loading="lazy">
             </div>
             <div class="work-content">
               <div class="work-meta">
                 <span class="work-num">04</span>
-                <span class="work-category">UX 設計</span>
+                <span class="work-category" data-i18n="work_cat_ux">UX 設計</span>
               </div>
               <h3 class="work-title">Art's Gallery</h3>
-              <p class="work-desc">
+              <p class="work-desc" data-i18n="work_04_desc">
                 Google UX Design 證書專題：藝廊導覽 App 與響應式網站，從使用者訪談、線框到高擬真原型。
               </p>
               <div class="work-links">
-                <a class="text-link" href="https://vincent-lu.webflow.io/work/arts-gallery-mobile-app" target="_blank" rel="noopener">看專題 →</a>
+                <a class="text-link" href="https://vincent-lu.webflow.io/work/arts-gallery-mobile-app" target="_blank" rel="noopener" data-i18n="work_04_link">看專題 →</a>
               </div>
             </div>
           </div>
@@ -865,34 +942,34 @@
 
     <section id="photo" class="surface-light photo-section" aria-labelledby="photo-heading">
       <div class="container">
-        <h2 class="section-title" id="photo-heading" data-reveal>攝影</h2>
+        <h2 class="section-title" id="photo-heading" data-reveal data-i18n="photo_heading">攝影</h2>
         <div class="photo-grid" data-reveal>
           <figure class="photo-item">
-            <img src="assets/p-venice.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-venice.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-stairs.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-stairs.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-lightshow.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-lightshow.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-sea.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-sea.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-waterfall.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-waterfall.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-ricefield.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-ricefield.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-tower.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-tower.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-yellow.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-yellow.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
           <figure class="photo-item">
-            <img src="assets/p-village.jpg" alt="攝影作品" loading="lazy">
+            <img src="assets/p-village.jpg" alt="攝影作品" data-i18n-alt="photo_alt" loading="lazy">
           </figure>
         </div>
       </div>
@@ -902,35 +979,35 @@
       <div class="container">
         <div class="about-grid" data-reveal>
           <div>
-            <h2 class="section-title" id="about-heading">經歷</h2>
+            <h2 class="section-title" id="about-heading" data-i18n="about_exp_heading">經歷</h2>
             <ul class="about-list">
-              <li>2019 — 現在｜地方政府｜設計職</li>
-              <li>2015 — 2019｜臺北市政府｜技術職，參與施政報告美感提升與市政直播</li>
-              <li>2012 — 2014｜影像製作｜導演</li>
-              <li>2009 — 2011｜影像製作｜編劇</li>
+              <li data-i18n="exp_1">2019 — 現在｜地方政府｜設計職</li>
+              <li data-i18n="exp_2">2015 — 2019｜臺北市政府｜技術職，參與施政報告美感提升與市政直播</li>
+              <li data-i18n="exp_3">2012 — 2014｜影像製作｜導演</li>
+              <li data-i18n="exp_4">2009 — 2011｜影像製作｜編劇</li>
             </ul>
           </div>
           <div>
-            <h2 class="section-title">得獎</h2>
+            <h2 class="section-title" data-i18n="about_awards_heading">得獎</h2>
             <ul class="about-list">
-              <li>2022 IPA 國際攝影獎 Official Selection</li>
-              <li>2018 臺北市政府青年優秀公務員</li>
-              <li>2013 美濃田園音樂節微電影 銅牌（編劇）</li>
-              <li>2013 天下雜誌「發現美麗臺灣」入圍（編劇、導演）</li>
-              <li>2012 「看見花蓮」全國攝影比賽 優選</li>
-              <li>2011 農委會農村樂活影片 首獎（編劇）</li>
+              <li data-i18n="award_1">2022 IPA 國際攝影獎 Official Selection</li>
+              <li data-i18n="award_2">2018 臺北市政府青年優秀公務員</li>
+              <li data-i18n="award_3">2013 美濃田園音樂節微電影 銅牌（編劇）</li>
+              <li data-i18n="award_4">2013 天下雜誌「發現美麗臺灣」入圍（編劇、導演）</li>
+              <li data-i18n="award_5">2012 「看見花蓮」全國攝影比賽 優選</li>
+              <li data-i18n="award_6">2011 農委會農村樂活影片 首獎（編劇）</li>
             </ul>
           </div>
         </div>
-        <p class="about-education" data-reveal>國立嘉義大學 美術學系（藝術管理學程）</p>
+        <p class="about-education" data-reveal data-i18n="about_education">國立嘉義大學 美術學系（藝術管理學程）</p>
       </div>
     </section>
 
     <section id="contact" class="surface-light contact-section" aria-labelledby="contact-heading">
       <div class="container">
         <div data-reveal>
-          <h2 class="section-title" id="contact-heading">聯絡</h2>
-          <p class="contact-lead">歡迎交流作品與合作授權。</p>
+          <h2 class="section-title" id="contact-heading" data-i18n="contact_heading">聯絡</h2>
+          <p class="contact-lead" data-i18n="contact_lead">歡迎交流作品與合作授權。</p>
           <div class="contact-links">
             <a class="text-link" href="https://www.linkedin.com/in/ching-ming-lu/" target="_blank" rel="noopener">LinkedIn</a>
           </div>
@@ -947,6 +1024,202 @@
 
   <script>
     (function () {
+      var I18N = {
+        zh: {
+          meta_title: 'Vincent Lu｜影像 × 設計 × AI 小工具',
+          meta_description: 'Vincent Lu（呂璟明）個人作品集。影像編導出身，從事攝影、公共設計與 UX 設計，現在用 AI 製作開源的生活小工具。',
+          nav_aria: '主導覽',
+          nav_work: '作品',
+          nav_photo: '攝影',
+          nav_about: '經歷',
+          nav_contact: '聯絡',
+          hero_aria: '主視覺',
+          hero_alt: '奧地利哈爾施塔特湖畔清晨攝影',
+          hero_subtitle: '影像 × 設計 × AI 小工具',
+          opening_aria: '開場介紹',
+          opening_intro: '拍過微電影、在公部門做了十年的設計與傳播，相信好的設計能讓公共資訊更好懂。現在我用 AI 做一些小工具，先解決自己家裡的問題，再開源分享給有同樣需求的人。',
+          work_heading: '作品',
+          work_cat_ai: 'AI 工具',
+          work_cat_photo: '攝影',
+          work_cat_ux: 'UX 設計',
+          work_01_alt: 'Homie 作業通手機介面截圖',
+          work_01_title: 'Homie 作業通',
+          work_01_desc: '給家長的作業小幫手：拍照逐題批閱、空白題先引導再給答案；繪本拍下來，逐句朗讀、智慧陪讀。開源、免費、照片不經任何伺服器。',
+          work_01_link_use: '使用 →',
+          work_01_link_code: '原始碼 →',
+          work_02_poster_title: '智帳',
+          work_02_poster_status: '展示版準備中',
+          work_02_title: '智帳',
+          work_02_desc: '電子發票匯入、AI 依品項分類、截圖對帳的個人記帳 App。展示版準備中。',
+          work_03_alt: 'Hallstatt in haze 攝影作品，清晨薄霧中的湖畔小鎮',
+          work_03_desc: '2022 IPA 國際攝影獎 Official Selection。雪白、湖藍與磚紅，一個起霧的早晨。',
+          work_04_alt: 'Art\'s Gallery UX 設計專題介面展示',
+          work_04_desc: 'Google UX Design 證書專題：藝廊導覽 App 與響應式網站，從使用者訪談、線框到高擬真原型。',
+          work_04_link: '看專題 →',
+          photo_heading: '攝影',
+          photo_alt: '攝影作品',
+          about_exp_heading: '經歷',
+          exp_1: '2019 — 現在｜地方政府｜設計職',
+          exp_2: '2015 — 2019｜臺北市政府｜技術職，參與施政報告美感提升與市政直播',
+          exp_3: '2012 — 2014｜影像製作｜導演',
+          exp_4: '2009 — 2011｜影像製作｜編劇',
+          about_awards_heading: '得獎',
+          award_1: '2022 IPA 國際攝影獎 Official Selection',
+          award_2: '2018 臺北市政府青年優秀公務員',
+          award_3: '2013 美濃田園音樂節微電影 銅牌（編劇）',
+          award_4: '2013 天下雜誌「發現美麗臺灣」入圍（編劇、導演）',
+          award_5: '2012 「看見花蓮」全國攝影比賽 優選',
+          award_6: '2011 農委會農村樂活影片 首獎（編劇）',
+          about_education: '國立嘉義大學 美術學系（藝術管理學程）',
+          contact_heading: '聯絡',
+          contact_lead: '歡迎交流作品與合作授權。'
+        },
+        en: {
+          meta_title: 'Vincent Lu | Film × Design × Small AI tools',
+          meta_description: 'Portfolio of Vincent Lu (Ching-Ming Lu). Filmmaker turned public-sector and UX designer, photographer, and builder of small open-source AI tools.',
+          nav_aria: 'Primary navigation',
+          nav_work: 'Work',
+          nav_photo: 'Photography',
+          nav_about: 'About',
+          nav_contact: 'Contact',
+          hero_aria: 'Hero',
+          hero_alt: 'Early morning photograph by the lake in Hallstatt, Austria',
+          hero_subtitle: 'Film × Design × Small AI tools',
+          opening_aria: 'Introduction',
+          opening_intro: 'I started out directing short films, then spent ten years in public-sector design and communications, believing good design makes public information clearer. Now I build small AI tools—solving problems at home first, then open-sourcing them for others.',
+          work_heading: 'Work',
+          work_cat_ai: 'AI Tools',
+          work_cat_photo: 'Photography',
+          work_cat_ux: 'UX Design',
+          work_01_alt: 'Mobile interface screenshot of the Homie homework helper',
+          work_01_title: 'Homie (作業通) — a homework helper for parents',
+          work_01_desc: 'Snap a photo to check homework question by question—guiding kids through blank items before revealing answers—or capture picture books for sentence-by-sentence read-aloud and guided reading. Free, open-source, and photos never pass through any server.',
+          work_01_link_use: 'Try it →',
+          work_01_link_code: 'Source code →',
+          work_02_poster_title: 'Zhizhang',
+          work_02_poster_status: 'Demo coming soon',
+          work_02_title: 'Zhizhang — a personal ledger app',
+          work_02_desc: 'Import e-invoices, categorize purchases by item with AI, and reconcile statements from screenshots. Demo coming soon.',
+          work_03_alt: 'Hallstatt in haze: lakeside village in the early morning mist',
+          work_03_desc: '2022 International Photography Awards (IPA), Official Selection. Snow white, lake blue, and brick red on a misty morning.',
+          work_04_alt: 'Interface showcase for the Art\'s Gallery UX design case study',
+          work_04_desc: 'Google UX Design Certificate case study: a gallery guide app and responsive website, from user interviews and wireframes to high-fidelity prototypes.',
+          work_04_link: 'View case study →',
+          photo_heading: 'Photography',
+          photo_alt: 'Photograph',
+          about_exp_heading: 'Experience',
+          exp_1: '2019 — Present | Local government · Design',
+          exp_2: '2015 — 2019 | Taipei City Government · Technician — public report design and city livestreams',
+          exp_3: '2012 — 2014 | Film production · Director',
+          exp_4: '2009 — 2011 | Film production · Screenwriter',
+          about_awards_heading: 'Awards',
+          award_1: '2022 International Photography Awards (IPA), Official Selection',
+          award_2: '2018 Outstanding Young Civil Servant, Taipei City Government',
+          award_3: '2013 Meinong Rural Music Festival Short Film, Bronze (Screenwriter)',
+          award_4: '2013 CommonWealth Magazine "Discover Beautiful Taiwan", Finalist (Screenwriter, Director)',
+          award_5: '2012 "Seeing Hualien" National Photography Competition, Merit Award',
+          award_6: '2011 Council of Agriculture Rural LOHAS Film, First Prize (Screenwriter)',
+          about_education: 'BFA, Fine Arts (Arts Management), National Chiayi University',
+          contact_heading: 'Contact',
+          contact_lead: 'Happy to talk about work, collaborations, and licensing.'
+        }
+      };
+
+      var STORAGE_KEY = 'pf_lang';
+      var currentLang = 'zh';
+      var metaDesc = document.querySelector('meta[name="description"]');
+      var langToggle = document.getElementById('lang-toggle');
+
+      function getSavedLanguage() {
+        try {
+          var saved = window.localStorage.getItem(STORAGE_KEY);
+          if (saved === 'zh' || saved === 'en') {
+            return saved;
+          }
+        } catch (e) {
+          // ignore storage access errors
+        }
+        return null;
+      }
+
+      function saveLanguage(lang) {
+        try {
+          window.localStorage.setItem(STORAGE_KEY, lang);
+        } catch (e) {
+          // ignore storage access errors
+        }
+      }
+
+      function getInitialLanguage() {
+        var saved = getSavedLanguage();
+        if (saved) return saved;
+        var navLang = '';
+        try {
+          navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        } catch (e) {
+          navLang = '';
+        }
+        return navLang.indexOf('zh') === 0 ? 'zh' : 'en';
+      }
+
+      function applyLanguage(lang) {
+        currentLang = lang === 'en' ? 'en' : 'zh';
+        var dict = I18N[currentLang];
+
+        document.documentElement.lang = currentLang === 'en' ? 'en' : 'zh-Hant-TW';
+        document.title = dict.meta_title;
+        if (metaDesc) {
+          metaDesc.setAttribute('content', dict.meta_description);
+        }
+
+        var textEls = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < textEls.length; i++) {
+          var el = textEls[i];
+          var key = el.getAttribute('data-i18n');
+          if (Object.prototype.hasOwnProperty.call(dict, key)) {
+            el.textContent = dict[key];
+          }
+        }
+
+        var altEls = document.querySelectorAll('[data-i18n-alt]');
+        for (var j = 0; j < altEls.length; j++) {
+          var img = altEls[j];
+          var altKey = img.getAttribute('data-i18n-alt');
+          if (Object.prototype.hasOwnProperty.call(dict, altKey)) {
+            img.setAttribute('alt', dict[altKey]);
+          }
+        }
+
+        var ariaEls = document.querySelectorAll('[data-i18n-aria]');
+        for (var k = 0; k < ariaEls.length; k++) {
+          var ariaEl = ariaEls[k];
+          var ariaKey = ariaEl.getAttribute('data-i18n-aria');
+          if (Object.prototype.hasOwnProperty.call(dict, ariaKey)) {
+            ariaEl.setAttribute('aria-label', dict[ariaKey]);
+          }
+        }
+
+        if (langToggle) {
+          if (currentLang === 'zh') {
+            langToggle.textContent = 'EN';
+            langToggle.setAttribute('aria-label', 'Switch to English');
+          } else {
+            langToggle.textContent = '中文';
+            langToggle.setAttribute('aria-label', '切換為中文');
+          }
+        }
+      }
+
+      applyLanguage(getInitialLanguage());
+
+      if (langToggle) {
+        langToggle.addEventListener('click', function () {
+          var nextLang = currentLang === 'zh' ? 'en' : 'zh';
+          applyLanguage(nextLang);
+          saveLanguage(nextLang);
+        });
+      }
+
       var header = document.getElementById('site-header');
       function updateHeader() {
         if (!header) return;
