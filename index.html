@@ -77,7 +77,8 @@
     }
 
     a:focus-visible,
-    .lang-toggle:focus-visible {
+    .lang-toggle:focus-visible,
+    .homie-hint-btn:focus-visible {
       outline: 2px solid var(--accent-light);
       outline-offset: 3px;
     }
@@ -119,7 +120,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       min-height: 58px;
       padding-block: 10px;
     }
@@ -145,10 +146,10 @@
     .site-nav {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 3px;
       flex-wrap: nowrap;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
     }
 
     .site-nav a {
@@ -207,28 +208,33 @@
 
     @media (max-width: 479px) {
       .header-inner {
-        gap: 8px;
+        gap: 6px;
       }
 
       .brand {
-        font-size: 1.05rem;
+        font-size: 0.98rem;
         letter-spacing: 0.01em;
       }
 
       .site-nav {
-        gap: 2px;
+        gap: 1px;
         font-size: 0.6875rem;
-        letter-spacing: 0;
+        letter-spacing: -0.01em;
+      }
+
+      html[lang="en"] .site-nav {
+        font-size: 0.625rem;
+        letter-spacing: -0.02em;
       }
 
       .site-nav a {
-        padding-inline: 1px;
+        padding-inline: 0;
       }
 
       .lang-toggle {
-        font-size: 0.65rem;
+        font-size: 0.625rem;
         letter-spacing: 0.02em;
-        padding: 3px 6px;
+        padding: 3px 5px;
         margin-left: 2px;
       }
     }
@@ -252,6 +258,26 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+    }
+
+    html.focus-init .hero-media {
+      filter: blur(14px);
+      transform: scale(1.05);
+      transition: filter 1.4s ease-out, transform 1.4s ease-out;
+    }
+
+    html.focus-init .hero-title-group {
+      opacity: 0;
+      transition: opacity 0.8s ease-out 0.6s;
+    }
+
+    html.focus-init.focus-ready .hero-media {
+      filter: blur(0);
+      transform: scale(1);
+    }
+
+    html.focus-init.focus-ready .hero-title-group {
+      opacity: 1;
     }
 
     .hero-overlay {
@@ -429,6 +455,188 @@
       width: 100%;
       max-height: 540px;
       object-fit: cover;
+    }
+
+    /* Homie Interactive Demo */
+    .homie-demo-wrap {
+      width: 100%;
+      max-width: 360px;
+      margin-inline: auto;
+    }
+
+    .homie-demo-caption {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      color: var(--text-dark-muted);
+    }
+
+    .homie-phone {
+      background-color: #FFFFFF;
+      border: 1px solid rgba(30, 30, 30, 0.12);
+      border-radius: 24px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(30, 30, 30, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .homie-phone-notch {
+      width: 44px;
+      height: 4px;
+      border-radius: 999px;
+      background-color: rgba(30, 30, 30, 0.14);
+      margin: 0 auto 2px;
+    }
+
+    .homie-card {
+      background-color: #FFFFFF;
+      border: 1px solid rgba(30, 30, 30, 0.09);
+      border-left-width: 4px;
+      border-radius: 14px;
+      padding: 13px 14px;
+      box-shadow: 0 1px 4px rgba(30, 30, 30, 0.04);
+      text-align: left;
+    }
+
+    .homie-card--wrong {
+      border-left-color: #F4436C;
+    }
+
+    .homie-card--blank {
+      border-left-color: #F59E0B;
+    }
+
+    .homie-card-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .homie-q-num {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text-dark);
+    }
+
+    .homie-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      line-height: 1.35;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .homie-badge--danger {
+      background-color: #FFE4EA;
+      color: #BE123C;
+      font-weight: 600;
+    }
+
+    .homie-badge--warn {
+      background-color: #FEF3C7;
+      color: #B45309;
+      font-weight: 600;
+    }
+
+    .homie-badge--topic {
+      background-color: #E6F7F4;
+      color: #0F766E;
+    }
+
+    .homie-eq {
+      margin: 10px 0 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-dark);
+    }
+
+    .homie-compare {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-dark);
+    }
+
+    .homie-correct-mark {
+      display: inline-block;
+      background-color: #FFE4EA;
+      color: #DC2626;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 6px;
+    }
+
+    .homie-note {
+      margin: 8px 0 0;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: #5E6673;
+    }
+
+    .homie-word-problem {
+      margin: 10px 0 0;
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--text-dark);
+    }
+
+    .homie-hints:not(:empty) {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .homie-hint-box {
+      margin: 0;
+      background-color: #FFFBEB;
+      border: 1px solid #FCD34D;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: #92400E;
+    }
+
+    .homie-hint-box--answer {
+      background-color: #ECFDF5;
+      border-color: #6EE7B7;
+      color: #065F46;
+    }
+
+    .homie-hint-btn {
+      appearance: none;
+      width: 100%;
+      margin-top: 10px;
+      padding: 9px 14px;
+      background-color: #FFFBEB;
+      border: 1px solid #FCD34D;
+      border-radius: 10px;
+      color: #92400E;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .homie-hint-btn:hover {
+      background-color: #FEF3C7;
+      border-color: #F59E0B;
     }
 
     .zhizhang-poster {
@@ -775,6 +983,19 @@
         animation-duration: 0.01ms !important;
       }
 
+      html.focus-init .hero-media,
+      html.focus-init.focus-ready .hero-media {
+        filter: none;
+        transform: none;
+        transition: none;
+      }
+
+      html.focus-init .hero-title-group,
+      html.focus-init.focus-ready .hero-title-group {
+        opacity: 1;
+        transition: none;
+      }
+
       html.js-reveal [data-reveal] {
         opacity: 1;
         transform: none;
@@ -785,6 +1006,11 @@
       }
     }
   </style>
+  <script>
+    if (window.requestAnimationFrame && (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('focus-init');
+    }
+  </script>
 </head>
 <body id="top">
   <header class="site-header" id="site-header">
@@ -792,6 +1018,8 @@
       <a href="#top" class="brand">Vincent Lu</a>
       <nav class="site-nav" aria-label="主導覽" data-i18n-aria="nav_aria">
         <a href="#work" data-i18n="nav_work">作品</a>
+        <span class="nav-sep" aria-hidden="true">·</span>
+        <a href="how.html" data-i18n="nav_process">方法</a>
         <span class="nav-sep" aria-hidden="true">·</span>
         <a href="#photo" data-i18n="nav_photo">攝影</a>
         <span class="nav-sep" aria-hidden="true">·</span>
@@ -851,8 +1079,38 @@
       <article class="surface-light work-row">
         <div class="container">
           <div class="work-grid" data-reveal>
-            <div class="work-media work-media--contain">
-              <img src="assets/homie.jpg" alt="Homie 作業通手機介面截圖" data-i18n-alt="work_01_alt" loading="lazy">
+            <div class="work-media">
+              <div class="homie-demo-wrap">
+                <p class="homie-demo-caption" data-i18n="homie_demo_caption">試試看：按「給我提示」</p>
+                <div class="homie-phone">
+                  <div class="homie-phone-notch" aria-hidden="true"></div>
+
+                  <div class="homie-card homie-card--wrong">
+                    <div class="homie-card-head">
+                      <span class="homie-q-num" data-i18n="homie_q3_title">第3題</span>
+                      <span class="homie-badge homie-badge--danger" data-i18n="homie_q3_status">要訂正</span>
+                      <span class="homie-badge homie-badge--topic" data-i18n="homie_q3_topic">二位數進位加法</span>
+                    </div>
+                    <p class="homie-eq">48 + 37 =</p>
+                    <p class="homie-compare">
+                      <span data-i18n="homie_q3_compare">你寫：75 → 正確：</span>
+                      <span class="homie-correct-mark">85</span>
+                    </p>
+                    <p class="homie-note" data-i18n="homie_q3_note">個位 8 + 7 = 15 有正確寫下 5，但十位忘記加上進位的 1。</p>
+                  </div>
+
+                  <div class="homie-card homie-card--blank">
+                    <div class="homie-card-head">
+                      <span class="homie-q-num" data-i18n="homie_q6_title">第6題</span>
+                      <span class="homie-badge homie-badge--warn" data-i18n="homie_q6_status">還沒寫</span>
+                      <span class="homie-badge homie-badge--topic" data-i18n="homie_q6_topic">二位數加法應用題</span>
+                    </div>
+                    <p class="homie-word-problem" data-i18n="homie_q6_question">小美原本有 45 張貼紙，媽媽又買給她 28 張，小美現在總共有幾張貼紙？</p>
+                    <div class="homie-hints" id="homie-hints" aria-live="polite"></div>
+                    <button type="button" class="homie-hint-btn" id="homie-hint-btn">💡 給我提示</button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="work-content">
               <div class="work-meta">
@@ -864,8 +1122,9 @@
                 給家長的作業小幫手：拍照逐題批閱、空白題先引導再給答案；繪本拍下來，逐句朗讀、智慧陪讀。開源、免費、照片不經任何伺服器。
               </p>
               <div class="work-links">
-                <a class="text-link" href="https://sakuradigi.github.io/homie" target="_blank" rel="noopener" data-i18n="work_01_link_use">使用 →</a>
-                <a class="text-link" href="https://github.com/sakuradigi/homie" target="_blank" rel="noopener" data-i18n="work_01_link_code">原始碼 →</a>
+                <a class="text-link" href="https://ching-ming-lu.github.io/homie" target="_blank" rel="noopener" data-i18n="work_01_link_use">使用 →</a>
+                <a class="text-link" href="https://github.com/ching-ming-lu/homie" target="_blank" rel="noopener" data-i18n="work_01_link_code">原始碼 →</a>
+                <a class="text-link" href="how.html" data-i18n="work_01_link_how">怎麼做的 →</a>
               </div>
             </div>
           </div>
@@ -1030,6 +1289,7 @@
           meta_description: 'Vincent Lu（呂璟明）個人作品集。影像編導出身，從事攝影、公共設計與 UX 設計，現在用 AI 製作開源的生活小工具。',
           nav_aria: '主導覽',
           nav_work: '作品',
+          nav_process: '方法',
           nav_photo: '攝影',
           nav_about: '經歷',
           nav_contact: '聯絡',
@@ -1042,11 +1302,28 @@
           work_cat_ai: 'AI 工具',
           work_cat_photo: '攝影',
           work_cat_ux: 'UX 設計',
-          work_01_alt: 'Homie 作業通手機介面截圖',
+          homie_demo_caption: '試試看：按「給我提示」',
+          homie_q3_title: '第3題',
+          homie_q3_status: '要訂正',
+          homie_q3_topic: '二位數進位加法',
+          homie_q3_compare: '你寫：75 → 正確：',
+          homie_q3_note: '個位 8 + 7 = 15 有正確寫下 5，但十位忘記加上進位的 1。',
+          homie_q6_title: '第6題',
+          homie_q6_status: '還沒寫',
+          homie_q6_topic: '二位數加法應用題',
+          homie_q6_question: '小美原本有 45 張貼紙，媽媽又買給她 28 張，小美現在總共有幾張貼紙？',
+          homie_hint_1: '提示 1：先圈出題目裡的兩個數字，想想看「又買給她」貼紙是變多還是變少？',
+          homie_hint_2: '提示 2：把 45 張和 28 張合起來，列出加法算式，用直式算算看（個位滿 10 要進位喔）。',
+          homie_answer: '答案：73 張。想過之後才看答案，才是真的學會。',
+          homie_btn_hint1: '💡 給我提示',
+          homie_btn_hint2: '💡 再給一個提示',
+          homie_btn_answer: '看答案',
+          homie_btn_reset: '↺ 重來',
           work_01_title: 'Homie 作業通',
           work_01_desc: '給家長的作業小幫手：拍照逐題批閱、空白題先引導再給答案；繪本拍下來，逐句朗讀、智慧陪讀。開源、免費、照片不經任何伺服器。',
           work_01_link_use: '使用 →',
           work_01_link_code: '原始碼 →',
+          work_01_link_how: '怎麼做的 →',
           work_02_poster_title: '智帳',
           work_02_poster_status: '展示版準備中',
           work_02_title: '智帳',
@@ -1079,6 +1356,7 @@
           meta_description: 'Portfolio of Vincent Lu (Ching-Ming Lu). Filmmaker turned public-sector and UX designer, photographer, and builder of small open-source AI tools.',
           nav_aria: 'Primary navigation',
           nav_work: 'Work',
+          nav_process: 'Process',
           nav_photo: 'Photography',
           nav_about: 'About',
           nav_contact: 'Contact',
@@ -1091,11 +1369,28 @@
           work_cat_ai: 'AI Tools',
           work_cat_photo: 'Photography',
           work_cat_ux: 'UX Design',
-          work_01_alt: 'Mobile interface screenshot of the Homie homework helper',
+          homie_demo_caption: 'Try it: tap "Give me a hint"',
+          homie_q3_title: 'Question 3',
+          homie_q3_status: 'Needs fixing',
+          homie_q3_topic: 'Two-digit addition with carrying',
+          homie_q3_compare: 'Wrote 75 → Correct:',
+          homie_q3_note: 'Ones: 8 + 7 = 15, wrote the 5 correctly, but forgot to carry the 1 to the tens.',
+          homie_q6_title: 'Question 6',
+          homie_q6_status: 'Not answered',
+          homie_q6_topic: 'Two-digit addition word problem',
+          homie_q6_question: 'Mei had 45 stickers. Mom bought her 28 more. How many stickers does Mei have now?',
+          homie_hint_1: 'Hint 1: Circle the two numbers. Does "bought her more" mean more stickers or fewer?',
+          homie_hint_2: 'Hint 2: Put 45 and 28 together as an addition, then work it out column by column (carry when the ones reach 10).',
+          homie_answer: 'Answer: 73 stickers. Seeing the answer after thinking it through is how it sticks.',
+          homie_btn_hint1: '💡 Give me a hint',
+          homie_btn_hint2: '💡 Another hint',
+          homie_btn_answer: 'Show answer',
+          homie_btn_reset: '↺ Start over',
           work_01_title: 'Homie (作業通) — a homework helper for parents',
           work_01_desc: 'Snap a photo to check homework question by question—guiding kids through blank items before revealing answers—or capture picture books for sentence-by-sentence read-aloud and guided reading. Free, open-source, and photos never pass through any server.',
           work_01_link_use: 'Try it →',
           work_01_link_code: 'Source code →',
+          work_01_link_how: 'How I built it →',
           work_02_poster_title: 'Zhizhang',
           work_02_poster_status: 'Demo coming soon',
           work_02_title: 'Zhizhang — a personal ledger app',
@@ -1129,6 +1424,60 @@
       var currentLang = 'zh';
       var metaDesc = document.querySelector('meta[name="description"]');
       var langToggle = document.getElementById('lang-toggle');
+
+      var homieHintsEl = document.getElementById('homie-hints');
+      var homieHintBtn = document.getElementById('homie-hint-btn');
+      var homieStep = 0;
+      var HOMIE_BTN_KEYS = [
+        'homie_btn_hint1',
+        'homie_btn_hint2',
+        'homie_btn_answer',
+        'homie_btn_reset'
+      ];
+
+      function updateHomieButton() {
+        if (!homieHintBtn) return;
+        var dict = I18N[currentLang];
+        var key = HOMIE_BTN_KEYS[homieStep];
+        if (Object.prototype.hasOwnProperty.call(dict, key)) {
+          homieHintBtn.textContent = dict[key];
+        }
+      }
+
+      function appendHomieBox(key, extraClass) {
+        if (!homieHintsEl) return;
+        var box = document.createElement('p');
+        box.className = extraClass ? 'homie-hint-box ' + extraClass : 'homie-hint-box';
+        box.setAttribute('data-i18n', key);
+        box.textContent = I18N[currentLang][key];
+        homieHintsEl.appendChild(box);
+      }
+
+      function clearHomieBoxes() {
+        if (!homieHintsEl) return;
+        while (homieHintsEl.firstChild) {
+          homieHintsEl.removeChild(homieHintsEl.firstChild);
+        }
+      }
+
+      if (homieHintBtn && homieHintsEl) {
+        homieHintBtn.addEventListener('click', function () {
+          if (homieStep === 0) {
+            homieStep = 1;
+            appendHomieBox('homie_hint_1');
+          } else if (homieStep === 1) {
+            homieStep = 2;
+            appendHomieBox('homie_hint_2');
+          } else if (homieStep === 2) {
+            homieStep = 3;
+            appendHomieBox('homie_answer', 'homie-hint-box--answer');
+          } else {
+            homieStep = 0;
+            clearHomieBoxes();
+          }
+          updateHomieButton();
+        });
+      }
 
       function getSavedLanguage() {
         try {
@@ -1199,6 +1548,8 @@
           }
         }
 
+        updateHomieButton();
+
         if (langToggle) {
           if (currentLang === 'zh') {
             langToggle.textContent = 'EN';
@@ -1228,7 +1579,62 @@
       updateHeader();
       window.addEventListener('scroll', updateHeader, { passive: true });
 
-      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var prefersReduced = Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+      (function initHeroFocus() {
+        var rootEl = document.documentElement;
+        var heroImg = document.querySelector('.hero-media');
+        if (prefersReduced || !heroImg || !window.requestAnimationFrame) {
+          rootEl.classList.remove('focus-init', 'focus-ready');
+          return;
+        }
+
+        var focusSettled = false;
+        var fallbackTimer;
+
+        function clearFocusImmediately() {
+          if (focusSettled) return;
+          focusSettled = true;
+          clearTimeout(fallbackTimer);
+          rootEl.classList.remove('focus-init', 'focus-ready');
+        }
+
+        function startFocusAnimation() {
+          if (focusSettled) return;
+          requestAnimationFrame(function () {
+            if (focusSettled) return;
+            requestAnimationFrame(function () {
+              if (focusSettled) return;
+              focusSettled = true;
+              clearTimeout(fallbackTimer);
+              rootEl.classList.add('focus-ready');
+            });
+          });
+        }
+
+        function handleHeroLoaded() {
+          if (focusSettled) return;
+          if (heroImg.naturalWidth === 0) {
+            clearFocusImmediately();
+            return;
+          }
+          if (typeof heroImg.decode === 'function') {
+            heroImg.decode().then(startFocusAnimation, clearFocusImmediately);
+          } else {
+            startFocusAnimation();
+          }
+        }
+
+        fallbackTimer = setTimeout(clearFocusImmediately, 2500);
+
+        if (heroImg.complete) {
+          handleHeroLoaded();
+        } else {
+          heroImg.addEventListener('load', handleHeroLoaded, { once: true });
+          heroImg.addEventListener('error', clearFocusImmediately, { once: true });
+        }
+      })();
+
       if (prefersReduced || !('IntersectionObserver' in window)) return;
 
       document.documentElement.classList.add('js-reveal');
